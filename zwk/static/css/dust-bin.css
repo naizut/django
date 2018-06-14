@@ -1,0 +1,52 @@
+.games_pics{
+	width: 100%;
+	height: 600px;
+}
+.games_pics img{
+	border-radius: 5px;
+	width: 100%;
+	height: 150px;
+	
+}
+.games_pics img:hover{
+	box-shadow: 1px 1px 50px #80ffff;
+}
+.games_pics span a{
+	font-size: 28px;
+	color: grey;
+	text-decoration: none;
+}
+.games_pics_below{
+	margin-top: 10px;
+	text-align: center;
+	width: 100%;
+	height: 75px;
+}
+.games_pics_wrapper{
+	margin-top: 50px;
+}
+.games_pics_wrapper :hover{
+	color: #80ffff;
+}
+
+
+/*music css*/
+.music{
+	margin-top: 2em;
+
+}
+.music_nav{
+	background-color: white;
+}
+.music_nav li{
+	box-shadow: 2px #80ffff;
+}
+.music a{
+}
+.music a:hover{
+	color: #80ffff;
+}
+.second-class-nav{
+	visibility: hidden;
+	position: absolute;
+}

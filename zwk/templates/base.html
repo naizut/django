@@ -1,0 +1,44 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="dns-prefetch" href="https://weibo.com/kevinadam">
+	<link rel="dns-prefetch" href="http://www.fnachat.com">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+	<!-- <base target="_blank" /> -->
+	<meta name="description" content="个人开发者，分享编程开发">
+	<meta name="keywords" content="javascript,golang,reactjs,vuejs,ajax,html,css,jquery,git,github,python,java,sql,linux,ios,android,web开发,opencv,tensorflow,machine learning, block chain,AI,django,flask,爬虫,人工智能,区块链,机器学习,数据挖掘,人脸识别,前端,后端,安卓,教程,软件,编程,开发,运维,云计算,网络,互联网,个人网站,网络安全" />
+	<meta property="og:type" content="website" />
+    <meta property="og:url" content="http://www.zhouwenkai.com/" />
+    <meta property="og:title" content="周文恺的个人网站" />
+    <meta property="og:description" content="分享编程技术与经验" />
+    <meta property="og:tag" content="index" />
+
+	<title>{% block title %}{% endblock %}</title>
+	<link rel="shortcut icon" href="{% static 'images/logo.png'%}">
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+	<!-- <link rel="stylesheet" type="text/css" href="{% static 'css/fonts.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/games.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/music.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/account.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/news.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/chat.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/devlog.css' %}"> -->
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/core.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+</head>
+<body style="background-color: #F1F1F1;">
+{% include 'header.html' %}
+
+<div>
+	{% block content %}
+	{% endblock %}
+</div>
+
+{% include 'footer.html' %}
+{% block javascript %}{% endblock %}
+</body>
+</html>

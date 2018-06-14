@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}La Musique{% endblock %}
+
+{% load staticfiles %}
+
+{% block content %}
+	<div class="music container">
+		<div class="col-md-2 music_nav col-md-offset-1" style="margin-top: 70px;">
+			<ul class="nav first-class-nav">
+				<li><a href="">Recommend</a></li>
+				<li><a href="">Russian</a></li>
+				<li><a href="">French Touch</a></li>
+				<li><a href="">Within Temptation</a></li>
+				<li><a href="">Trance</a></li>
+			</ul>
+		</div>
+		<div class="col-md-2 music_nav" style="height: 600px;">
+		<embed src="http://www.xiami.com/widget/0_1769204742/singlePlayer.swf" type="application/x-shockwave-flash" width="257" height="33" wmode="transparent"></embed>
+			<ul class="nav second-class-nav" id="recommend">
+				<li><a href="">SaltWater - Chicane</a></li>
+				<li><a href="">Empire - Voicians</a></li>
+				<li><a href="">My only chance - The Toxic Avengers</a></li>
+				<li><a href="">High enough - K.Flay</a></li>
+				<li><a href="">In and out of love - Armin van buuren ft Sharon den adel</a></li>
+				<li><a href="">Anjunabeach - Above & Beyond</a></li>
+				<li><a href="">Get Lucky - Daft Punk</a></li>
+				<li><a href="">Children - Robert Miles</a></li>
+			</ul>
+			<ul class="nav second-class-nav">
+				<li><a href="">SaltWater - Chicane</a></li>
+				<li><a href="">dd</a></li>
+				<li><a href="">My only chance</a></li>
+				<li><a href="">High enough</a></li>
+				<li><a href="">In and out of love - Armin van buuren ft Sharon den adel</a></li>
+				<li><a href="">Anjunabeach - Above & Beyond</a></li>
+				<li><a href="">High enough</a></li>
+				<li><a href="">High enough</a></li>
+				<li><a href="">High enough</a></li>
+				<li><a href="">High enough</a></li>
+			</ul>
+			<ul class="nav second-class-nav">
+				<li><a href="">SaltWater - Chicane</a></li>
+				<li><a href="">cc</a></li>
+				<li><a href="">My only chance</a></li>
+				<li><a href="">High enough</a></li>
+				<li><a href="">In and out of love - Armin van buuren ft Sharon den adel</a></li>
+				<li><a href="">Anjunabeach - Above & Beyond</a></li>
+				<li><a href="">High enough</a></li>
+				<li><a href="">High enough</a></li>
+				<li><a href="">High enough</a></li>
+				<li><a href="">High enough</a></li>
+			</ul>
+		</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('.first-class-nav li').bind('mouseover', showSubNav);
+			// $('.first-class-nav li').bind('onclick', hideSubNav);
+			function showSubNav(){
+				var num = $(this).index();
+				$('.second-class-nav').css('visibility', 'hidden');
+				$('.second-class-nav').eq(num).css('visibility', 'visible');
+			};
+			$('.second-class-nav li').bind('click', playAudio);
+			function playAudio(){
+				var audio = document.createElement("audio");
+				audio.src = "{% static 'media/music/ur_the_conversation.mp3' %}";
+				audio.play();
+			};
+		});	
+	</script>
+{% endblock %}

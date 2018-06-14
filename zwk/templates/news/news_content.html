@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ message.title }}{% endblock %}
+
+{% load staticfiles %}
+
+{% block content %}
+{% with total_likes=message.users_like.count users_like=message.users_like.all %}
+<div class="container">
+	<div class="col-md-offset-2 col-md-7" id="news_content">
+		<h2>{{ message.title }}</h2>
+		<p id="news_content_publish">{{ message.publish }} <span class="glyphicon glyphicon-thumbs-up" style="margin-left: 20px">{{ total_likes }}like{{ total_likes|pluralize }}</span></p>
+		<p id="news_content_body">{{ message.body|safe|linebreaks }}</p> 
+		<p style="margin-top: 50px;color: grey;">© 本文版权归作者  Kenny.Z  所有，任何形式转载请<a href="#my_qq">联系作者。</a></p><br>
+		<p class="text-right">
+			<a onclick="like_news({{message.id}}, 'like')" href="#"><span class="glyphicon glyphicon-thumbs-up"></span></a>&nbsp; &nbsp; &nbsp; &nbsp; 
+			<a onclick="like_news({{message.id}}, 'unlike')" href="#"><span class="glyphicon glyphicon-thumbs-down"></span></a>
+		</p>
+	</div>
+	<div class="col-md-2">
+		<div class="news-comment">
+			{% for comment in message.comments.all %}
+				<div>
+					<p class="comments">
+						<b>{{ comment.commentator }}</b>: 
+						{{ comment.body|slice:'200' }}
+					</p>
+				</div>
+			{% empty %}
+			<p id="comments_empty">
+				No comments matched your search.<br><br>
+				<a href="javascript:void(0);">Make first comment?</a>
+			</p>
+			
+			{% endfor %}
+		</div>
+		<div></div>
+	</div>
+
+	<div class="col-md-12">
+		<div style="margin-top:3em;margin-bottom: 1em;"></div>
+		<div class="col-md-offset-2 commentary col-md-6" id="news-comment-nav">
+			<form action="." method="post" role="form" class="form-horizontal">
+				{% csrf_token %}
+				<div class="form-group">
+					<!-- <label class="col-sm-2 control-label">Nickname:</label> -->
+					<div class="col-sm-10">
+						{{ comment_form.commentator }}
+					</div>
+				</div>
+				<div class="form-group">
+					<!-- <label class="col-sm-2 control-label">Comment:</label> -->
+					<div class="col-sm-10">
+						{{ comment_form.body }}
+					</div>
+				</div>
+				<div class="form-group">
+					<input type="submit" name="" value="Submit" class="btn-default btn-kyros" id="news-sbt">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src-="{% static 'js/layer.js' %}"></script>
+<script type="text/javascript">
+	$(function(){
+			$('.news-comment a').click(function(){
+				$("html,body").animate({scrollTop: $('#news-comment-nav').children(2).offset().top}, 1000);
+			})
+	})
+	function like_news(id, action){
+		$.ajax({
+			url: "{% url 'news:like_news' %}",
+			type: "POST",
+			data : {"id":id, "action":action},
+			success:function(e){
+				if(e=="1"){
+					layer.msg('Merci!');
+					window.location.reload();
+				}else{
+					layer.msg('Please tell me the problem by comments');
+					window.location.reload();
+				}
+			},
+		});
+	}
+</script>
+{% endwith %}
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% load staticfiles%}
+
+{% block content %}
+	<div class="container">
+		<div class=" col-md-offset-3 col-md-6">
+			<p class="error">本页面正在维护中。</p>
+		</div>
+		<div class="col-md-8 col-md-offset-4">
+			<div>
+				<ul class="list-inline">
+					<li><a href="https://github.com/naizut"><img src="{% static 'images/icons/github0.png' %}" width="150px;"></a></li>
+					<li><a href="https://hub.docker.com/r/naizut/test/"><img src="{% static 'images/icons/dockerhub.png' %}" width="150px;"></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+{% endblock %}

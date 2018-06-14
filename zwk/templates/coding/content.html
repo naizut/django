@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% block title %}生活记录{% endblock %}
+
+{% load staticfiles %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div id="sponsor-qrcode-wrapper">
+			<div id="sponsor-qrcode">
+				<a href="#" class="close" onclick="closeSponsor()" style="right: 0;">&times;</a>
+				<img src="{% static 'images/weixin.png' %}" style="display: block;">
+				<p style="border-bottom: 1px solid black">wechat</p>
+				<p>alipay</p>
+				<img src="{% static 'images/zhifubao.png' %}">
+			</div>
+		</div>
+		<div class="col-md-8 col-md-offset-2">
+			<div class="devlog-content-article" style="box-shadow: 1px 1px #D8D8D8;">
+				<h1>{{ diaries.title }}</h1>
+				<h7>{{ diaries.publish }}</h7>
+				<p style="margin-top: 5em;">{{ diaries.body|safe|linebreaks }}</p>
+				<p style="margin-top: 50px;color: grey;">© 本文版权归作者  WenK.Z  所有，任何形式转载请附上原文链接或<a href="#my_qq">联系作者。</a></p>
+				<p><button onclick="sponsorShow();" class="btn-success btn">$ Donate any amount to Support Development</button></p>
+				<div class="next-to-pages">
+					<p>上一篇: <a href="javascript:void(0);" onclick="redirectURL(this)" value="{{ prePage.id }}"><b>{{ prePage }}</b></a></p>
+					<span>下一篇: <a href="javascript:void(0);" onclick="redirectURL(this)" value="{{ nextPage.id }}"><b>{{ nextPage }}</b></a></span>
+				</div>
+				<div id="coding_comments_wrapper">
+				{% for comment in diaries.comments.all %}
+					<div class="coding_comments">
+						<p><b>{{ comment.commentator }}</b>:</p>
+						<p style="text-indent: 2em;">{{ comment.body }}</p>
+						<p style="text-align: right;">{{ comment.created|timesince }} ago</p>
+					</div>
+				{% empty %}
+					<p id="coding_comments_empty">
+						No comments.<br><br>
+						<a href="javascript:void(0);">Make first comment？<span class="glyphicon glyphicon-triangle-bottom"></span></a>
+					</p>
+				{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+<!-- 	<div class="row">
+		<div class="col-md-offset-2 coding_comments">
+			{% for comment in diaries.comments.all %}
+				<div>
+					<p>
+						<b>{{ comment.commentator }}</b>: 
+						{{ comment.body }}
+					</p>
+				</div>
+			{% empty %}
+			<p>
+				No comments matched your search.<br><br>
+				<a href="javascript:void(0);">Make first comment?</a>
+			</p>
+			
+			{% endfor %}
+		</div>
+	</div> -->
+	<div class="col-md-12">
+		<div style="margin-top:3em;margin-bottom: 1em;"></div>
+		<div class="col-md-offset-2 commentary col-md-6" id="news-comment-nav">
+			<form action="." method="post" role="form" class="form-horizontal">
+				{% csrf_token %}
+				<div class="form-group">
+					<!-- <label class="col-sm-2 control-label">Nickname:</label> -->
+					<div class="col-sm-10">
+						{{ comment_form.commentator }}
+					</div>
+				</div>
+				<div class="form-group">
+					<!-- <label class="col-sm-2 control-label">Comment:</label> -->
+					<div class="col-sm-10">
+						{{ comment_form.body }}
+					</div>
+				</div>
+				<div class="form-group">
+					<input type="submit" name="" value="Submit" class="btn-default btn-kyros" id="news-sbt">
+				</div>
+			</form>
+		</div>
+	</div>
+	
+</div>
+<script type="text/javascript">
+	$().ready(function(){
+		$('#coding_comments_empty a').click(function(){
+				$("html,body").animate({scrollTop: $('#news-comment-nav').children(2).offset().top-200}, 1000);
+		})
+		//Distance to top
+		var _distance2Top = $('#devlog-nav').offset().top;
+		if (_distance2Top >= 120) {
+			$('#devlog-nav').css('position', 'fixed');
+		}
+	})
+	function redirectURL(e){
+		var url = e.getAttribute('value');
+		window.location.replace("/dev_log/" + url);
+	}
+	function sponsorShow(){
+			document.getElementById('sponsor-qrcode').style.visibility=document.getElementById('sponsor-qrcode').style.visibility=='visible'?'hidden':'visible';
+			window.location.hash = "#beginning";
+			document.getElementById('curtain').style.visibility='visible';
+		};
+	function closeSponsor(){
+			document.getElementById('sponsor-qrcode').style.visibility = 'hidden';
+		};
+</script>
+{% endblock %}

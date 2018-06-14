@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}新闻{% endblock %}
+
+{% block content %}
+<div class="container" style="width: 100%;padding: 15px;">
+	<!-- <div class="col-md-3" id="news_tag">
+		<div class="col-md-12">
+			<ul class="">
+				<li><a href="">Fnachat</a></li>
+			</ul>
+		</div>
+		<div class="col-md-12">
+			<ul class="">
+				<li><a href="">css framework</a></li>
+			</ul>
+		</div>
+	</div> -->
+	<div class="row">
+		<div class="col-md-12">
+			<div style="height: 200px;color: grey;">
+				<div class="text-center">
+					<span><h1>Featured Products</h1></span>
+					<ul>
+						<li><img src="{% static 'images/F.png' %}"><h2>Fnachat</h2></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-10 col-md-offset-2" id="news_list_wrapper">
+			{% for new in news %}
+				<div class="news_list col-md-8">
+					<h2>{{ new.title }}</h2>
+					<p>&nbsp</p>
+					<p>{{ new.resume|linebreaks }}<a href="{{ new.id }}">Read More</a></p><br>
+					<!-- <span>评论({{ num_comments.0.1 }})</span> -->
+				</div>
+				<div class="col-md-3 col-md-offset-1 time-vertical">
+					<ul class="">
+						<li><b></b><span></span><a href="javascript:void(0)">{{ new.publish }}</a></li>
+					</ul>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(function(){
+		var h1 = $('#news_list_wrapper').height();
+		var h2 = 0-h1;
+		$('.time-vertical').css('margin-bottom', h2/4.5);
+		$('.time-vertical').css('padding-bottom', h1/4.5);
+		$('.time-vertical a').click(function(){
+			$("html,body").animate({scrollTop: $(this).siblings(1).offset().top}, 1000);
+		})
+	})
+</script>
+{% endblock %}

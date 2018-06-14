@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block title %}目录{% endblock %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-offset-2 col-md-7" id="devlog-wrapper">
+			<div class="table-list-header col-md-12">
+				<div class="table-list-header-toggle col-md-5">
+					
+				</div>
+				<div class="table-list-header-toggle col-md-7">
+					<div>
+						<button class="select-button select-btn-coding">Labels</button>
+						<div class="select-menu-dropdown js-drop">
+							<a href="#" class="close">&times;</a>
+							<div class="js-drop-header">Filter by Labels</div>
+							{% for label in labels %}
+								<a href="#" value="filter_by_labels/{{ label }}" onclick="redirectURL(this);"><div class="js-drop-body">{{ label }}</div></a>
+							{% endfor %}
+						</div>
+					</div>
+					<div>
+						<button class="select-button select-btn-coding">Category</button>
+						<div class="select-menu-dropdown js-drop">
+							<a href="#" class="close">&times;</a>
+							<div class="js-drop-header">Filter by Category</div>
+							{% for category in categories %}
+								<a href="#" value="filter_by_category/{{ category }}" onclick="redirectURL(this);"><div class="js-drop-body">{{ category }}</div></a>
+							{% endfor %}
+						</div>
+					</div>
+					<div>
+						<button class="select-button select-btn-coding">Language</button>
+						<div class="select-menu-dropdown js-drop">
+							<a href="#" class="close">&times;</a>
+							<div class="js-drop-header">Filter by Language</div>
+							{% for language in languages %}
+								<a href="#" value="filter_by_language/{{ language }}" onclick="redirectURL(this);"><div class="js-drop-body">{{ language }}</div></a>
+							{% endfor %}
+						</div>
+					</div>
+					<div>
+						<button class="select-button select-btn-coding">Sort</button>
+						<div class="select-menu-dropdown js-drop">
+							<a href="#" class="close">&times;</a>
+							<div class="js-drop-header">Filter by Sort</div>
+							{% for sort in sorts %}
+								<a href="#" onclick="redirectURL(this);" value="filter_by_sort/{{ sort }}"><div class="js-drop-body">{{ sort }}</div></a>
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="table-list-body col-md-12" style="padding:0">
+				{% for title in titles%}
+					<div class="devlog-titles-article">
+						<div>
+							<div><h4><!-- <b>&lt;{{ title.language }}&gt;</b> --><a href="{{ title.id }}">{{ title.title }}</a></h4></div><span style="font-size: 10px;">{{ title.publish }}</span>
+							
+						</div>
+						<p style="font-size: 10px;margin-top: 1em;">{{title.resume}}</p>
+						<a href="{{ title.id }}"><div style="font-size: 14px;float: right;"><span class="glyphicon glyphicon-comment"></span>&nbsp;({{ title.comments.count }})</div></a>
+					</div>
+				{% endfor %}
+			</div>
+			<div class="col-md-offset-5">{% include "paginator.html" %}</div>
+		</div><!-- 
+		<div id="devlog-dashboard-right" class="col-md-3">
+			<div>hahah</div>
+		</div> -->
+	</div>
+</div>
+<script type="text/javascript">
+	// $().ready(function(){
+	// 	var h = $('.table-list-header').height();
+	// 	for (var i = 3; i >= 0; i--) {
+	// 		var x = $('.select-button')[i].offsetLeft+100;
+	// 		var y = h-6;
+	// 		$('.js-drop')[i].style.left = x+'px';
+	// 		$('.js-drop')[i].style.top = y+'px';
+	// 	}
+	// 	alert($(this).parent().find('.select-menu-dropdown').is(":hidden"));
+	// 	// var x = $('.select-button')[0].offsetLeft;
+	// 	$('.select-button').click(function(){
+	// 		$(this).parent().find('.select-menu-dropdown').show();
+	// 	});
+	// })
+	function redirectURL(e){
+		var url = e.getAttribute('value');
+		window.location.replace("/dev_log/" + url);
+	}
+	$(function(){
+		var h = $('.table-list-header').height();
+		
+		for (var i = 3; i >= 0; i--) {
+			var x = $('.select-button')[i].offsetLeft;
+			var y = h;
+			$('.js-drop')[i].style.left = x+'px';
+			$('.js-drop')[i].style.top = y+'px';
+		}
+
+
+
+		$('.close').click(function(){
+			$(this).parent().hide();
+		})
+		$('.select-button').on("click", function(e){
+			$('.select-menu-dropdown').hide();
+			$(this).parent().find('.select-menu-dropdown').show();
+			var x = $(this).parent().find('.select-menu-dropdown');
+			$(document).one("click", function(){
+    			x.hide();
+			});
+			e.stopPropagation();
+		});
+		$(".select-menu-dropdown").on("click", function(e){
+			e.stopPropagation();
+		});
+	})
+</script>
+{% endblock %}

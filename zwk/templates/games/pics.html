@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}yros' Gaming{% endblock %}
+
+{% load staticfiles %}
+
+{% block content %}
+<div class="games_pics">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3 col-md-push-1 games_pics_wrapper">
+				<div>
+					<a href="csgo"><img src="{% static 'images/csgo.jpg' %}"></a>
+				</div>
+				<div class="games_pics_below">
+					<span><a href="csgo">Counter Strike:Global Offensive</a></span>
+				</div>
+			</div>
+			<div class="col-md-1"></div>
+			<div class="col-md-3 col-md-push-1 games_pics_wrapper">
+				<div>
+					<a href="https://kb.ceve-market.org/pilot/93961859/"><img src="{% static 'images/eve.jpg' %}"></a>
+				</div>
+				<div class="games_pics_below">
+					<span><a href="https://kb.ceve-market.org/pilot/93961859/">EVE ONLINE</a></span>
+				</div>
+			</div>
+			<div class="col-md-1"></div>
+			<div class="col-md-3 col-md-push-1 games_pics_wrapper">
+				<div>
+					<a href="https://steamcommunity.com/id/marchelliz/"><img src="{% static 'images/steam.jpg' %}"></a>
+				</div>
+				<div class="games_pics_below">
+					<span><a href="https://steamcommunity.com/id/marchelliz/">Steam</a></span>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3 col-md-push-1 games_pics_wrapper">
+				<div>
+					<a href="fifa14"><img src="{% static 'images/fifa14.jpg' %}"></a>
+				</div>
+				<div class="games_pics_below">
+					<span><a href="fifa14">FIFA 14</a></span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

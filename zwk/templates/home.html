@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}enny's Personal website{% endblock %}
+
+{% block content %}
+<div class="container" style="width: 100%;">
+	<div class="col-md-12 col-xs-6" id="gain-job">
+		<div class="col-md-offset-2 col-md-5">
+			<span><h4 class="home-plugged-in">当前正在进行的项目：<b>Fnachat</b>(社交) 合作 > 网站底部联系</h4></span>
+		</div>
+		<div class="col-md-2">
+			<span id="contact-me-by-navbar"><a href="#my_qq"><h4>&gt;&gt; Contact me &lt;&lt;</h4></a></span>
+		</div>
+		<div class="col-md-2">
+			<span id="lose-job"><h4>&gt;&gt; No, thanks &lt;&lt;</h4></span>
+		</div>
+	</div>
+</div>
+<div class="container">
+	<div class="col-md-12">
+		<div class="col-md-offset-2 col-md-8">
+			<h1>Zvv<img src="{% static 'images/logo.png' %}" id="home-logo">的个人网站</h1><br>
+			<p><h4>欢迎来到我的个人网站，在这里一起分享生活点滴与技术交流~</h4></p>
+		</div>
+	</div>
+	<div class="col-md-offset-2 col-md-7 dashboard-main">
+		<div id="audio_latest">
+			<span>You're the Conversation (I'm the Game) - Chirs Corner 「ft. Sue Denim」</span>
+			<audio src="{% static 'media/music/ur_the_conversation.mp3' %}" controls="controls" preload="metadata"></audio>
+			<p id="audio-wrong">IE浏览器与该播放器不兼容，请使用其他浏览器！</p>
+		</div>
+		<div id="news_latest">
+			<div>
+				<span><h1>News</h1></span><hr>
+				<p><h3>{{ latest_news.title }}</h3></p>
+				<p>{{ latest_news.publish }}</p>
+				<p style="margin-top: 2em;">{{ latest_news.resume|linebreaks }}</p>
+				<p><a href="{% url 'news:news_list' %}">&gt;&gt;More News&lt;&lt;</a></p>
+				<p style="clear: both;"></p>
+			</div>
+		</div>
+		<div id="article_latest">
+			<div>
+				<span><h1>最新文章</h1></span><hr>
+				<p><h3>{{ latest_article.title }}</h3></p>
+				<p>{{ latest_article.publish|timesince }} ago</p>
+				<p style="margin-top: 2em;">简介:{{ latest_article.resume|linebreaks }}</p>
+				<p><a href="{% url 'dev_log:coding-titles' %}">&gt;&gt;更多文章&lt;&lt;</a></p>
+				<p style="clear: both;"></p>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-3 dashboard-right">
+		<div id="home-myself">
+			<div class="profile-photo">
+				<img src="{% static 'images/me.png' %}">&nbsp&nbsp&nbsp
+				<span><b>ZvvK</b></span>
+			</div>
+			<div id="resume-myself">
+				<p style="margin-top: 1em;">
+					Morior invictus maneo.
+				</p>
+			</div>
+		</div>
+		<!-- <div id="resume-program" style="background-color:white;margin-top: 1em;border-radius: 5px;padding: 10px;box-shadow: 5px 5px 5px #80ffff;">
+			<span style="border-bottom: 1px solid grey">My Skill Stack:</span>
+			<ul>
+				<li>-Python3</li>
+				<li>-Django</li>
+				<li>-Flask</li>
+				<li>-ReactJS</li>
+				<li>-Html\css\Js\Jquery</li>
+				<li>-Android</li>
+			</ul>
+		</div> -->
+		<div id="message_latest">
+			<div id="home-chat-board">
+				<a href="{% url 'chat:chat_board' %}">
+					<h4>Chat Board</h4></a>
+			</div>
+			<div style="margin-top: 1em;">
+				{% for y in latest_message|slice:":5" %}
+					<p><b>{{ y.chatter }}</b>:{{ y.body|safe }}</p>
+				{% endfor %}
+			</div>
+		</div>
+		<div id="message_latest1">
+			<div id="home-chat-board1">
+				<a href="{% url 'dev_log:coding-titles' %}">
+					<h4>Articles</h4></a>
+			</div>
+			<div style="margin-top: 1em;padding-left: 1em;font-size: 1.3em">
+				<ul style="list-style-type:disc;">
+					{% for x in titles %}
+					<li>{{ x }}</li>
+					{% endfor %}
+				</ul>
+				
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	document.onreadystatechange = loadingChange;
+	function loadingChange(){
+		if(document.readyState == 'complete'){
+			$("#gain-job").animate(
+				{ height:"100px" },
+				1000,
+				function(){
+        			$("#loading-bar").css('visibility','visible');
+        		});
+		}
+	}
+
+	$(function(){
+		$('#lose-job').click(function(){
+			$('#gain-job').animate(
+				{ height:"0"},
+				1000,
+				function(){
+					$('#gain-job').hide();
+					$(".navbar_wrapper").css('box-shadow','1px 1px #DCDCDC');
+				}
+			);
+		});
+	});
+</script>
+{% endblock %}

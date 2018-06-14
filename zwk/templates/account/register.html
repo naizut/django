@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}注册{% endblock %}
+
+{% block content %}
+<div class="container">
+	<div class="text-center login reg col-md-6 col-md-offset-3">
+		<img src="{% static 'images/login.png' %}">
+		<h3>Welcome to Kyros'.</h1>
+		<p>Although account is useless in this website.</p>
+		<p>{{ form.non_field_errors }}</p>
+		<form action="." method="POST">
+			{% csrf_token %}
+			<div class="form-group">
+				<div class="col-md-offset-3 text-left">{{ form.username }}</div>
+			</div>
+			<div class="form-group">
+				<div class="col-md-offset-3 text-left">{{ form.first_name }}</div>
+			</div>
+			<div class="form-group">
+				<div class="col-md-offset-3 text-left">{{ form.email }}</div>
+			</div>
+			<div class="form-group">
+				<div class="col-md-offset-3 text-left">{{ form.password }}</div>
+			</div>
+			<div class="form-group">
+				<div class="col-md-offset-3 text-left">{{ form.password2 }}</div>
+			</div>
+			<button type="submit" class="btn btn-default btn-lg">注册</button>
+			<input type="hidden" name="next" value="{{ next }}"/>
+		</form>
+		
+	</div>
+</div>
+{% endblock %}

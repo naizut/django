@@ -1,0 +1,123 @@
+{% load staticfiles %}
+<div>
+	<div class="navbar_wrapper container">
+		<div class="col-md-2">
+			<!-- <a href="{% url 'home' %}"><img src="{% static 'images/icon.png' %}" style="width: 100px;height: 120px;"></a> -->
+		</div>
+		<div class="navbar-nav col-md-offset-2" role="navigation" id="beginning">
+			<ul id="nav-beginning">
+				<li><a href="{% url 'home' %}"><img src="{% static 'images/icons/home.png' %}" style="width: 1.5em;margin-right: 0.5em">Home</a></li>
+				<li><a href="{% url 'dev_log:coding-titles' %}"><img src="{% static 'images/icons/coding.png' %}" style="width: 1.5em;margin-right: 0.5em">Coding</a></li>
+				<!-- <li><a href="{% url 'music:music_list' %}">Music</a></li> -->
+				<!-- <li><a <head></head>ref="{% url 'games:games_pics' %}">游戏</a></li> -->
+				<li><a href="{% url 'news:news_list' %}"><img src="{% static 'images/icons/news.png' %}" style="width: 1.5em;margin-right: 0.5em">News</a></li>
+				<li><a href="{% url 'chat:chat_board' %}"><img src="{% static 'images/icons/chat.png' %}" style="margin-right: 0.5em;width: 1.5em;"></img>ChatBoard</a></li>
+				<!-- <li><a href="{% url 'download' %}">Download</a></li> -->
+			</ul>
+		</div>
+		<div class="navbar-nav">
+			<form action="{% url 'dev_log:titles-search' %}" method="POST">
+				{% csrf_token %}
+				<input type="search" class="form-control col-md-offset-12" style="width: 18em;display: inline-block;margin-top: 1.5em;background-image: url({% static 'images/icons/search.png' %});background-size: 2.2em;background-repeat: no-repeat;background-position: right top;" placeholder="回车搜索文章标题" id="header_search_bar" name='header-search'>
+			</form>
+			<!-- <button type="button" class="btn btn-default" style="border:none;">
+  				<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+			</button> -->
+		</div>
+		<!-- <div role="navigation" class="nav navbar-nav navbar-right" style="margin-right: 20px;">
+			<ul>
+				{% if user.is_authenticated %}
+				<li><a href="">{{ user.first_name }}</a></li>
+				<li><a href="{% url 'account:user_logout' %}?next={{ request.path }}"">Log out</a></li>
+				{% else %}
+				<li><a href="{% url 'account:user_login' %}?next={{ request.path }}">Log In</a></li>
+				<li><a href="{% url 'account:user_register' %}?next={{ request.path }}">Sign up</a></li>
+				{% endif %}
+			</ul>
+		</div> -->
+	</div>
+	<div id="top_blank"></div>
+</div>
+<div id="loading-bar"></div>
+<script type="text/javascript">
+	document.onreadystatechange = loadingChange;
+	function loadingChange(){
+		if(document.readyState == 'complete'){
+			$('#loading-bar').css('visibility', 'visible');
+			$("#loading-bar").animate(
+				{ width:"100%" },
+				1000,
+				function(){
+        			$("#loading-bar").hide();
+        			$(".navbar_wrapper").css('box-shadow', '1px 1px #DCDCDC');
+        		});
+		}
+	};
+	
+	// function searchArticles(){
+	// 	$.ajax({
+	// 		url: "{% url 'dev_log:titles-search' %}",
+	// 		type: "POST",
+	// 		data : {"context":$('#header_search_bar').val()},
+	// 		success:function(data){
+	// 			// if(e=="1"){
+	// 			// 	layer.msg('Merci!');
+	// 			// 	window.location.reload();
+	// 			// }else{
+	// 			// 	layer.msg('Please tell me the problem by comments');
+	// 			// 	window.location.reload();
+	// 			// }
+	// 		},
+	// 	});
+	// }
+	// $('#header_search_bar').bind('keypress', function(event) {  
+ //            if (event.keyCode == "13") {
+ //               searchArticles();
+ //            }
+ //    });//阻止回车之后的页面刷新而使得搜索的事件读不到  
+	/*判断浏览器版本*/
+
+	$(function(){
+		// $("#nav-beginning li").click(function(){
+		// 	$("#nav-beginning li").eq($(this).index()).addClass('actived').siblings().removeClass('actived');
+		// })
+		function selectedIcons(){
+			$(this).children("img").attr("src", this.src.substring(0,temp.length-4)+"_selected.png");
+		}
+		if(IEVersion() != -1){
+			window.alert("用IE"+IEVersion()+"的小饼干你好~本网站dis IE浏览器!");
+			$('#article_latest').find('audio').hide();
+			$('#audio-wrong').show();
+		} 
+
+		function IEVersion() {
+            var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串 
+            var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1; //判断是否IE<11浏览器 
+            var isEdge = userAgent.indexOf("Edge") > -1 && !isIE; //判断是否IE的Edge浏览器 
+            var isIE11 = userAgent.indexOf('Trident') > -1 && userAgent.indexOf("rv:11.0") > -1;
+            if(isIE) {
+                var reIE = new RegExp("MSIE (\\d+\\.\\d+);");
+                reIE.test(userAgent);
+                var fIEVersion = parseFloat(RegExp["$1"]);
+                if(fIEVersion == 7) {
+                    return 7;
+                } else if(fIEVersion == 8) {
+                    return 8;
+                } else if(fIEVersion == 9) {
+                    return 9;
+                } else if(fIEVersion == 10) {
+                    return 10;
+                } else {
+                    return 6;//IE版本<=7
+                }  
+            } else if(isEdge) {
+                return 'edge';//edge
+            } else if(isIE11) {
+                return 11; //IE11 
+            }else{
+                return -1;//不是ie浏览器
+            }
+        }
+	})
+
+</script>
